@@ -29,7 +29,7 @@ int main(int argc, char **argv)
 		}
 		else
 		{
-			printf("($) ");
+			write(1, "($) ", 5);
 		}
 
 		nchar_read = getline(&line, &size, stdin);
@@ -38,7 +38,7 @@ int main(int argc, char **argv)
 		{
 			if (nchar_read == EOF)
 			{
-				printf("\n");
+				write(1, "\n", 3);
 				return (0);
 			}
 			perror("Error");
@@ -52,7 +52,7 @@ int main(int argc, char **argv)
 			return (-1);
 		}
 
-		strcpy(line_copy, line);
+		_strcpy(line_copy, line);
 
 		delim = " \n";
 
@@ -83,7 +83,7 @@ int main(int argc, char **argv)
 				return (-1);
 			}
 
-			strcpy(argv[i], token);
+			_strcpy(argv[i], token);
 			token = strtok(NULL, delim);
 		}
 		argv[i] = NULL;
@@ -96,8 +96,11 @@ int main(int argc, char **argv)
 		}
 		if (process == 0)
 		{
-			executing(argv);
-			exit(0);
+			if (execve(argv[0], argv, NULL))
+			{
+				perror("./shell");
+				exit(0);
+			}
 		}
 		else
 		{
@@ -116,30 +119,5 @@ int main(int argc, char **argv)
 		free(line_copy);
 
 	}
-	return (0);
-}
-
-/**
- * executing - function that executes the command passed by the user
- * @argv: contains the command and its arguments
- * Return: 0 on success, -1 otherwise
- */
-
-int executing(char **argv)
-{
-	if (argv == NULL)
-	{
-		perror("Error: argv is empty");
-		return (-1);
-	}
-
-	if (execve(argv[0], argv, NULL) == -1)
-	{
-		perror("./shell");
-
-		return (-1);
-	}
-
-	free(argv);
 	return (0);
 }
