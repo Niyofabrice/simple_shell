@@ -66,7 +66,7 @@ char *cant_cd(myshell *data)
 		free(ver_str);
 		return (NULL);
 	}
-	error = cderror(data, msg, error, ver_str);
+	error = cd_error(data, msg, error, ver_str);
 	free(ver_str);
 	return (error);
 }

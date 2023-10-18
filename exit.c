@@ -20,7 +20,7 @@ int _exit_(myshell *data)
 		big_number = ustatus > (unsigned int)INT_MAX;
 		if (!is_digit || str_len > 10 || big_number)
 		{
-			finderror(data, 2);
+			find_error(data, 2);
 			data->status = 2;
 			return (1);
 		}

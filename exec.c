@@ -107,7 +107,7 @@ int is_executable(myshell *data)
 	{
 		return (i);
 	}
-	finderror(data, 127);
+	find_error(data, 127);
 	return (-1);
 }
 
@@ -121,14 +121,14 @@ int com_error(char *dir, myshell *data)
 {
 	if (dir == NULL)
 	{
-		finderror(data, 127);
+		find_error(data, 127);
 		return (1);
 	}
 	if (_strcmp(data->args[0], dir) != 0)
 	{
 		if (access(dir, X_OK) == -1)
 		{
-			finderror(data, 126);
+			find_error(data, 126);
 			free(dir);
 			return (1);
 		}
@@ -138,7 +138,7 @@ int com_error(char *dir, myshell *data)
 	{
 		if (access(data->args[0], X_OK) == -1)
 		{
-			finderror(data, 126);
+			find_error(data, 126);
 			return (1);
 		}
 	}
